@@ -1,0 +1,37 @@
+"""
+Given a sorted integer array without duplicates, return the summary of 
+its ranges.
+
+Example 1:
+
+Input:  [0,1,2,4,5,7]
+Output: ["0->2","4->5","7"]
+Explanation: 0,1,2 form a continuous range; 4,5 form a continuous range.
+"""
+
+class Solution(object):
+    def summaryRanges(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[str]
+        """
+        if len(nums) == 0:
+            return []
+
+        ans = []
+        start = 0
+        nums.append(nums[0])
+
+        for i in range(1, len(nums)):
+            if nums[i] == nums[i-1] + 1:
+                continue
+
+            if i - 1 > start:
+                ans.append(str(nums[start]) + "->" + str(nums[i-1]))
+            else:
+                ans.append(str(nums[start]))
+
+            start = i
+
+
+        return ans
